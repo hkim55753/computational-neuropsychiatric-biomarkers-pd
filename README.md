@@ -1,46 +1,78 @@
 # Computational Neuropsychiatric Biomarkers in Parkinson’s Disease
+### Computational Analysis of Parkinson’s Disease Motor Biomarkers Using Wearable Sensor Data
 
 ## Overview
 
-This project investigates neuropsychiatric manifestations of Parkinson’s disease (PD), with a focus on identifying computational and neuroimaging-derived biomarkers associated with cognitive decline, mood symptoms, and psychiatric comorbidity.
+This repository contains code for the computational analysis of motor function in Parkinson’s disease (PD) using smartwatch-based wearable sensor data from the PhysioNet Parkinson’s Disease Smartwatch Dataset.
 
-Parkinson’s disease is increasingly recognized as a multisystem disorder with significant neuropsychiatric burden, including depression, anxiety, psychosis, and progressive cognitive impairment. This project aims to explore brain–behavior relationships using publicly available neuroimaging and clinical datasets.
+The objective of this project is to develop interpretable computational biomarkers that distinguish Parkinson’s disease from healthy controls using task-based motion data.
 
-## Research Objectives
+The analysis focuses on:
+- Signal preprocessing of wrist-worn accelerometer and gyroscope data
+- Extraction of time-series motor features
+- Statistical comparison between clinical groups
+- Machine learning classification of Parkinson’s disease
+- Interpretation of task-specific motor signatures
 
-* Identify structural and functional neuroimaging correlates of neuropsychiatric symptoms in Parkinson’s disease
-* Explore computational approaches for modeling cognitive decline and psychiatric symptom burden
-* Develop reproducible analytical pipelines for neuroimaging feature extraction and statistical analysis
-* Investigate associations between clinical phenotypes and imaging-derived biomarkers
+---
 
-## Data Sources
+## Dataset
 
-This project is designed to utilize publicly available neuroimaging datasets, including large-scale Parkinson’s disease cohorts such as the Parkinson’s Progression Markers Initiative (PPMI), as well as other open neuroimaging repositories where applicable.
+This project uses the publicly available PhysioNet Parkinson’s Disease Smartwatch Dataset:
 
-## Methods Overview
+https://physionet.org/content/parkinsons-disease-smartwatch/1.0.0/
 
-Planned analyses include:
+The dataset includes:
+- Multi-task wrist sensor recordings
+- Accelerometer and gyroscope signals
+- Healthy and Parkinson’s disease participants
 
-* Neuroimaging preprocessing and feature extraction
-* Structural MRI morphometric analysis
-* Diffusion MRI white matter integrity assessment (where available)
-* Clinical–imaging correlation analysis
-* Multivariate regression modeling
-* Exploratory clustering of neuropsychiatric symptom profiles
-* Dimensional reduction techniques for biomarker discovery
+Local dataset path used in this repository:
 
-## Computational Tools
 
-* Python (NumPy, pandas, scikit-learn)
-* Nilearn / NiBabel (neuroimaging analysis)
-* Statsmodels
-* Matplotlib / Seaborn
-* Jupyter Notebooks
+---
 
-## Clinical Significance
+## Methods
 
-Neuropsychiatric symptoms in Parkinson’s disease are a major contributor to disability, caregiver burden, and reduced quality of life. Identifying reproducible computational biomarkers may improve early detection, risk stratification, and precision psychiatry approaches for neurodegenerative disease.
+### 1. Data Preprocessing
+Raw smartwatch signals are processed to:
+- Segment recordings by motor task
+- Align multi-channel sensor streams
+- Remove low-frequency trends using L1 trend filtering
 
-## Status
+### 2. Feature Extraction
+For each task and sensor channel, the following features are computed:
+- Signal variance (motor variability)
+- Spectral entropy (signal complexity)
+- Jerk (movement smoothness)
 
-This project is in early development as part of an ongoing physician-scientist research trajectory in computational neuropsychiatry and neurodegenerative disease modeling.
+### 3. Statistical Analysis
+Group-level comparisons between Parkinson’s disease and healthy controls are performed using:
+- Non-parametric statistical tests
+- Effect size estimation (Cohen’s d)
+
+### 4. Machine Learning
+A logistic regression model is used to classify Parkinson’s disease versus healthy controls using task-aware feature aggregation.
+
+Model performance is evaluated using cross-validated ROC-AUC.
+
+---
+
+## Results
+
+- The task-aware classification model achieves an average ROC-AUC of approximately 0.75.
+- Parkinson’s disease participants show increased motor variability and reduced signal entropy compared to healthy controls.
+- Task-specific differences are observed, indicating that motor impairment is not uniform across activities.
+- Certain motor tasks (e.g., object handling and postural control tasks) contribute more strongly to classification performance.
+
+---
+
+## Reproducibility
+
+To reproduce the main results:
+
+bash
+python src/plotting/figure3_motor_phenotype_nature_noseaborn.py
+python src/plotting/figure5_task_aware_roc.py
+python src/plotting/figure6_task_feature_importance.py
+
