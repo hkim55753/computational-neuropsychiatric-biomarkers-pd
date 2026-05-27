@@ -65,14 +65,4 @@ Model performance is evaluated using cross-validated ROC-AUC.
 - Task-specific differences are observed, indicating that motor impairment is not uniform across activities.
 - Certain motor tasks (e.g., object handling and postural control tasks) contribute more strongly to classification performance.
 
----
-
-## Reproducibility
-
-To reproduce the main results:
-
-bash
-python src/plotting/figure3_motor_phenotype_nature_noseaborn.py
-python src/plotting/figure5_task_aware_roc.py
-python src/plotting/figure6_task_feature_importance.py
-
+--- 
